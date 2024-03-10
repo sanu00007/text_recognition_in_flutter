@@ -35,6 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   File? _imageFile;
+  var result = "Results to be shown here";
   Future<void> _pickImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -53,6 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
         await textRecognizer.processImage(inputImage);
     String extractedText = recognizedText.text;
     print(extractedText);
+    result =
+        "Text Recognised by Google MLkit is Listed below: \n" + extractedText;
+    setState(() {
+      result;
+    });
   }
 
   @override
@@ -78,7 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ElevatedButton(
                   onPressed: _pickImage,
                   child: Text('Pick Image'),
-                )
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(result),
               ],
             ),
           ),
